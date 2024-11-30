@@ -2,21 +2,17 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header.jsx'
 import Input from './components/Input.jsx';
 import Results from './components/Results.jsx';
-import { calculateInvestmentResults } from './util/investment.js';
+import { calculateInvestmentResults, formatter } from './util/investment.js';
 
 const initialInputState = {
-  initialInvestment: 1000,
-  annualInvestment: 2400,
-  expectedReturn: 10000,
-  duration: 5, 
+  initialInvestment: 15000, // Base Investment Value
+  annualInvestment: 1200, // Yearly Amount of Investment
+  expectedReturn: 6, // % return
+  duration: 10, // Duration of investment in years
 };
 
 function App() {
   const [inputValue, setInputValueState] = useState(initialInputState);
-
-  useEffect(() => {
-
-  }, [inputValue]);
   function handleInputChange(id, newValue) {
     setInputValueState((prev) => ({
       ...prev,
@@ -34,18 +30,8 @@ function App() {
       <Input inputs={inputValue} handleInput={handleInputChange}/>
 
       {/* Results Table */}
-      <Results/>
+      <Results results={calculateInvestmentResults(inputValue)}/>
     </>
-
-
-    //Input
-    // INITIAL INVESTMENT 
-    // ANNUAL INVESTMENT
-    // EXPECTED RETURN
-    // DURATION
-    //Display
-    // 5 columns
-    // YEAR INVESTMENT VALUE INTEREST(YEAR) TOTAL INTEREST INVESTED CAPITAL
   )
 }
 
