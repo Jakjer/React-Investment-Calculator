@@ -19,17 +19,22 @@ export default function Results({results}){
         </tr>
       </thead>
       <tbody>
-      {results.map((yearlyResult) => {
+
+      {/* year: i + 1, // year identifier */}
+      {/* interest: interestEarnedInYear, // the amount of interest earned in this year */}
+      {/* valueEndOfYear: investmentValue, // investment value at end of year */}
+      {/* annualInvestment: annualInvestment, // investment added in this year */}
+      {results.map((yearlyResult, yearlyResultIndex) => {
+        const totalInterest = yearlyResult.interest;
+        {/* const totalInterest = yearlyResult.valueEndOfYear - (yearlyResult.interest * yearlyResult.year); */}
         return (
-          <>
-            <tr>
+            <tr key={yearlyResultIndex}>
               <td>{yearlyResult.year}</td>
               <td>{formatter.format(yearlyResult.valueEndOfYear)}</td>
               <td>{formatter.format(yearlyResult.interest)}</td>
               <td>{formatter.format(yearlyResult.totalInterest)}</td> 
               <td>{formatter.format(yearlyResult.totalInvestedCapital)}</td>
-            </tr> 
-          </>
+            </tr>
         )
       })}
       </tbody>

@@ -13,6 +13,7 @@ const initialInputState = {
 
 function App() {
   const [inputValue, setInputValueState] = useState(initialInputState);
+
   function handleInputChange(id, newValue) {
     setInputValueState((prev) => ({
       ...prev,
@@ -24,12 +25,7 @@ function App() {
     <>
       {/* Title + Logo */}
       <Header/>
-
-      
-      {/* Input Block */}
       <Input inputs={inputValue} handleInput={handleInputChange}/>
-
-      {/* Results Table */}
       <Results results={calculateInvestmentResults(inputValue)}/>
     </>
   )
