@@ -4,23 +4,23 @@ Chart.register(...registerables);
 
 export default function Graph({investment, goal}) {
 
-  function handleExtractInfo(chartData, targetData){
-    return chartData.map((chart) => {
-      return chart[targetData];
+  function extractDataPoints(chartData, targetDataPoint){
+    return chartData.map((chartDataPoint) => {
+      return chartDataPoint[targetDataPoint];
     });
   }
 
-  function handleChartXAxis(investment, goal){
+  function extractedXAxis(investment, goal){
     if(investment.length > goal.length){
-      return handleExtractInfo(investment, 'year');
+      return extractDataPoints(investment, 'year');
     } else {
-      return handleExtractInfo(goal, 'year');
+      return extractDataPoints(goal, 'year');
     }
   }
   
-  const yearLabels = handleChartXAxis(investment, goal); 
-  const yearlyReturns = handleExtractInfo(investment, 'valueEndOfYear');
-  const targetReturns = handleExtractInfo(goal, 'valueEndOfYear');
+  const yearLabels = extractedXAxis(investment, goal); 
+  const yearlyReturns = extractDataPoints(investment, 'valueEndOfYear');
+  const targetReturns = extractDataPoints(goal, 'valueEndOfYear');
 
   const chartData = {
     labels: yearLabels,
@@ -28,14 +28,14 @@ export default function Graph({investment, goal}) {
       {
         label: "My Investments",
         data: yearlyReturns,
-        fill: true,
+        fill: false,
         backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "rgba(75,192,192,1)"
       },
       {
         label: "Target Investment",
         data: targetReturns,
-        fill: true,
+        fill: false,
         backgroundColor:   "rgba(255,255,255,0.2)",
         borderColor:  "rgba(255,255,255,1)",
       },
