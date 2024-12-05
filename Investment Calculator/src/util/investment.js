@@ -32,6 +32,27 @@ export function calculateInvestmentResults({
   return annualData;
 }
 
+export function calculateInvestmentGoalLength({
+  initialInvestment,
+  annualInvestment,
+  expectedReturn,
+  targetInvestment,
+}) {
+  const annualData = [];
+  let investmentValue = Number(initialInvestment);
+  let i = 1;
+  while(Number(investmentValue) < Number(targetInvestment)){
+    const interestEarnedInYear = i === 1 ? Number(investmentValue) * (Number(expectedReturn) / 100) : Number(investmentValue) * (Number(expectedReturn + Math.floor(Math.random() * 6) + 1) / 100) ;
+    investmentValue += Number(interestEarnedInYear) + Number(annualInvestment);
+    annualData.push({
+      year: i++,
+      interest: interestEarnedInYear,
+      valueEndOfYear: investmentValue,
+      annualInvestment: annualInvestment,
+    });
+  }
+  return annualData;
+}
 // The browser-provided Intl API is used to prepare a formatter object
 // This object offers a "format()" method that can be used to format numbers as currency
 // Example Usage: formatter.format(1000) => yields "$1,000"

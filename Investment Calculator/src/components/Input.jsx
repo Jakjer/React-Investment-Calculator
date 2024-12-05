@@ -34,6 +34,13 @@ export default function Input({inputs, handleInput}) {
             <input type="number" value={inputValue.duration} onChange={(e) => handleValue('duration', e.target.value)}/>
           </p>
         </div>
+
+        <div className='input-group'>
+          <p>
+            <label>Investment Goal</label>
+            <input type="number" value={inputValue.targetInvestment} onChange={(e) => handleValue('targetInvestment', e.target.value)}/>
+          </p>
+        </div>
     </section>
     
   )

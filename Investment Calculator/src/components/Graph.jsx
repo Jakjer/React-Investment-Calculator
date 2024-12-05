@@ -1,22 +1,27 @@
-import { useEffect, useState } from 'react';
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
-import { formatter, testFormatter} from '../util/investment.js';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
-export default function Graph({data}) {
+export default function Graph({investment, goal}) {
 
-  console.log("Data", data);
-  const yearLabels = data.map((data) => {
-    return (data.year)
-  });
+  function handleExtractInfo(chartData, targetData){
+    return chartData.map((chart) => {
+      return chart[targetData];
+    });
+  }
 
-  const yearlyReturns = data.map((data) => {
-    return data.valueEndOfYear;
-  });
+  function handleChartXAxis(investment, goal){
+    if(investment.length > goal.length){
+      return handleExtractInfo(investment, 'year');
+    } else {
+      return handleExtractInfo(goal, 'year');
+    }
+  }
+  
+  const yearLabels = handleChartXAxis(investment, goal); 
+  const yearlyReturns = handleExtractInfo(investment, 'valueEndOfYear');
+  const targetReturns = handleExtractInfo(goal, 'valueEndOfYear');
 
-  console.log("yearly returns", yearlyReturns);
-  console.log("Year Labels", yearLabels);
   const chartData = {
     labels: yearLabels,
     datasets: [
@@ -27,23 +32,16 @@ export default function Graph({data}) {
         backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "rgba(75,192,192,1)"
       },
+      {
+        label: "Target Investment",
+        data: targetReturns,
+        fill: true,
+        backgroundColor:   "rgba(255,255,255,0.2)",
+        borderColor:  "rgba(255,255,255,1)",
+      },
     ]
   };
-  // const [chartData, setChartData] = useState({
-  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-  //   // labels: data.map((data) => ({data.year})),
-  //   datasets: [{
-  //     label:"My Investment Portfolio",
-  //     data: data.map((data) => {
-  //       return (data.valueEndOfYear);
-  //     }),
-  //     fill: false,
-  //     borderColor: 'rgb(75,192,192)',
-  //     tension: 0.1,
-  //   }]
-  // });
 
-  console.log("Chart Data", chartData);
   return (
     <>
       <Line data={chartData} />

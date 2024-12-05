@@ -4,15 +4,14 @@ import Input from './components/Input.jsx';
 import Graph from './components/Graph.jsx';
 import Results from './components/Results.jsx';
 
-
-import { calculateInvestmentResults, formatter } from './util/investment.js';
+import { calculateInvestmentGoalLength, calculateInvestmentResults } from './util/investment.js';
 
 const initialInputState = {
   initialInvestment: 15000, // Base Investment Value
   annualInvestment: 1200, // Yearly Amount of Investment
   expectedReturn: 6, // % return
   duration: 10, // Duration of investment in years
-  targetInvestmentvalue: 100000,
+  targetInvestment: 100000, // Target Investment
 };
 
 function App() {
@@ -31,7 +30,7 @@ function App() {
       <Header/>
       <Input inputs={inputValue} handleInput={handleInputChange}/>
       <Results results={calculateInvestmentResults(inputValue)}/>
-      <Graph data={calculateInvestmentResults(inputValue)}/>
+      <Graph investment={calculateInvestmentResults(inputValue)} goal={calculateInvestmentGoalLength(inputValue)}/>
     </>
   )
 }
