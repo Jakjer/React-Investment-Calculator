@@ -3,6 +3,7 @@ import Header from './components/Header.jsx'
 import Input from './components/Input.jsx';
 import Graph from './components/Graph.jsx';
 import Results from './components/Results.jsx';
+import Greeting from './components/Greeting.jsx';
 
 import { calculateInvestmentGoalLength, calculateInvestmentResults } from './util/investment.js';
 
@@ -28,6 +29,7 @@ function App() {
     <>
       {/* Title + Logo */}
       <Header/>
+      <Greeting/>
       <Input inputs={inputValue} handleInput={handleInputChange}/>
       <Results results={calculateInvestmentResults(inputValue)}/>
       <Graph investment={calculateInvestmentResults(inputValue)} goal={calculateInvestmentGoalLength(inputValue)}/>
